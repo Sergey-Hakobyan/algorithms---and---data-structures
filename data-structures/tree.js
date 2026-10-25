@@ -46,8 +46,9 @@ class BST {
          }
          _insertRecursive(this.root, node)
     }
+
     _insertRecursive(current, node){
-        if(current.value > value){
+        if(current.value > node.value){
             if(!current.left){
                 current.left = node
             }
@@ -55,7 +56,7 @@ class BST {
                 this._insertRecursive(current.left, node)
             }
         }
-        else if(current.value < value){
+        else if(current.value < node.value){
             if(!current.right){
                 current.right = node
             }
@@ -99,51 +100,50 @@ class BST {
         return result
     }
 
-preorder() {
-    let stack = [this.root]
-    let curr = this.root
+    preorder() {
+        let stack = [this.root]
+        let curr = this.root
 
-    while(stack.length>0){
-        curr = stack.pop()
-        result.push(curr)
-        
-        if(curr.right){
-            stack.push(curr.right)
+        while(stack.length>0){
+            curr = stack.pop()
+            result.push(curr)
+            
+            if(curr.right){
+                stack.push(curr.right)
+            }
+
+            if(curr.left){
+                stack.push(curr.left)
+            }
         }
-
-        if(curr.left){
-            stack.push(curr.left)
-        }
-    }
-
 
 }
-postorder() {
-    let result = [];
-    let stack = [];
-    let curr = this.root;
-    let prev = null;
+    postorder() {
+        let result = [];
+        let stack = [];
+        let curr = this.root;
+        let prev = null;
 
-    while (curr || stack.length > 0) {
-        while (curr) {
-            stack.push(curr);
-            curr = curr.left;
+        while (curr || stack.length > 0) {
+            while (curr) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+
+            curr = stack[stack.length - 1];
+
+            if (curr.right && prev !== curr.right) {
+                curr = curr.right;
+            } else {
+                result.push(curr.value);
+                prev = curr;
+                stack.pop();
+                curr = null;
+            }
         }
 
-        curr = stack[stack.length - 1];
-
-        if (curr.right && prev !== curr.right) {
-            curr = curr.right;
-        } else {
-            result.push(curr.value);
-            prev = curr;
-            stack.pop();
-            curr = null;
-        }
+        return result;
     }
-
-    return result;
-}
 
 
     getMin(node) {
