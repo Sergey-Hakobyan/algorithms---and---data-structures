@@ -285,4 +285,21 @@ class AVL {
         return this.getMin(node.right)
     }
 
+    search(value) {
+    let curr = this.root;
+
+    while (curr) {
+        if (curr.value === value) {
+            return curr;
+        }
+
+        if (value < curr.value) {
+            curr = curr.left;
+        } else {
+            curr = curr.right;
+        }
+    }
+
+    return null;
+}
 }
